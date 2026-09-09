@@ -2,7 +2,7 @@ import streamlit as st
 
 def display_kpi_card(rank, row):
     """상위 상권 요약 KPI 카드를 화면에 렌더링합니다."""
-    st.subheader(f"🏆 {rank}위 상권 요약: {row['gu_name']} {row['dong_name']}")
+    st.subheader(f"{rank}위 상권 요약: {row['gu_name']} {row['dong_name']}")
     
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("블루오션 지수", f"{int(row['blue_ocean_score']):,}")

@@ -18,9 +18,6 @@ logging.basicConfig(
 )
 
 def collect_living_pop(target_date, target_time):
-    """
-    특정 일자(YYYYMMDD)와 시간(HH)의 행정동별 생활인구를 수집합니다.
-    """
     session = make_session()
     
     start_idx = 1
