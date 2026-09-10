@@ -56,7 +56,7 @@ SEOUL_API_KEY=본인API키
   URL: https://www.data.go.kr/data/15097972/fileData.do
   기준 시점: 20260630
 
-### Step 2. MariaDB 스키마(테이블) 생성
+## Step 2. MariaDB 스키마(테이블) 생성
 > Python으로 데이터를 적재하기 전, 데이터베이스에 빈 테이블과 인덱스를 먼저 세팅해야 합니다. 터미널에 아래 명령어를 입력하세요.
 ```bash
 mysql -u root -p project_db < db/schema.sql
