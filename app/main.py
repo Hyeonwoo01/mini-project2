@@ -7,6 +7,7 @@ st.set_page_config(page_title="2030 카페 상권 분석", layout="wide")
 
 df_kpi = get_blueocean_kpi()
 df_kpi_top10 = df_kpi.sort_values(by='blue_ocean_score', ascending=False).head(10)
+df_kpi_top10.index = range(1, len(df_kpi_top10) + 1)
 
 with st.sidebar:
     st.header("상권 상세 검색")
@@ -24,11 +25,13 @@ with st.sidebar:
         mime='text/csv',
     )
 
-top3_dongs = df_kpi_top10['dong_name'].head(3).tolist()
+df_valid_kpi = df_kpi[(df_kpi['resident_pop_2030'] >= 100) & (df_kpi['cafe_count'] >= 3)]
+top3_dongs = df_valid_kpi.sort_values(by='blue_ocean_score', ascending=False).head(3)['dong_name'].tolist()
 dynamic_title = f"{'·'.join(top3_dongs)}, 2030 타겟 카페 창업 최적 입지로 도출되었습니다"
 
 st.title(dynamic_title)
 st.markdown("거주 인구 대비 유동 인구가 풍부하고 경쟁 점포가 적은 블루오션 상권 분석 결과입니다.")
+st.info(" **안내:** 데이터 표 상위권인 일부 상권(예: 반포본동 등)은 대규모 재건축 및 이주로 인한 통계적 이상치(거주인구 및 상가 수 급감)로 인하여, 최종 추천 입지 순위에서는 제외되었습니다.")
 
 selected_kpi = df_kpi_top10[df_kpi_top10['dong_name'] == target_region].iloc[0]
 
