@@ -6,6 +6,10 @@
 * **주요 기술:** Python, MariaDB, Streamlit, Pandas
 * **아키텍처:** 데이터 수집기(Collector) - 데이터베이스(DB: Raw/Mart 분리) - 대시보드(App)의 3계층 단방향 구조 적용
 
+# 미니 프로젝트 2 - 서울시 유동인구 대시보드
+
+**최종 대시보드 배포 링크:** [여기를 클릭해서 대시보드 확인하기](https://hwamini-project2-yyayszvvsxwtuqxa63zuoy.streamlit.app/)
+
 ---
 
 ## 2. 대시보드 스크린샷 
