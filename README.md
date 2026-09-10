@@ -29,6 +29,7 @@ DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=본인비밀번호
 DB_NAME=project_db
+```
 
 ## Step 1. DB 스키마 생성 및 기초 데이터 적재
 **기초 CSV 데이터 다운로드**
@@ -57,10 +58,10 @@ Step 2. API 데이터 수집 (Collector 계층)
 서울시 OpenAPI를 호출하여 24시간 생활인구 데이터를 DB 원본(Raw) 테이블에 적재합니다.
 python -m collector
 
-Step 3. 데이터 마트(Mart) 집계
+## Step 3. 데이터 마트(Mart) 집계
 무거운 연산을 대시보드에서 제외하기 위해, DB 단에서 KPI를 사전 연산하여 마트 테이블을 생성합니다.
 mysql -u root -p project_db < db/build_mart.sql
 
-Step 4. 대시보드 실행
+## Step 4. 대시보드 실행
 모든 데이터 준비가 완료되면 대시보드를 구동합니다
 streamlit run app/main.py
