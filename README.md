@@ -29,22 +29,23 @@ DB_USER=root
 DB_PASSWORD=본인비밀번호
 DB_NAME=project_db
 
-### Step 1. DB 스키마 생성 및 기초 데이터 적재
+## Step 1. DB 스키마 생성 및 기초 데이터 적재
 **기초 CSV 데이터 다운로드**
 > 깃허브 대용량 파일 정책 및 보안 원칙에 따라 원본 CSV 데이터는 `.gitignore`로 제외되었습니다.
 > 코드를 실행하기 전, CSV 파일을 다운로드하여 `project/data/` 폴더에 넣어주세요.
 - 소상공인시장진흥공단_상가(상권)정보:
-    제공기관: 소상공인시장진흥공단
-    URL: https://www.data.go.kr/data/15083033/fileData.do 
-    기준 시점: 20260630
-
+  제공기관: 소상공인시장진흥공단
+  URL: https://www.data.go.kr/data/15083033/fileData.do
+  기준 시점: 20260630
 - 행정안전부_지역별(행정동) 성별 연령별 주민등록 인구수:
-    제공기관: 행정안전부
-    URL: https://www.data.go.kr/data/15097972/fileData.do
-    기준 시점: 20260630
+  제공기관: 행정안전부
+  URL: https://www.data.go.kr/data/15097972/fileData.do
+  기준 시점: 20260630
 
 MariaDB에 접속하여 프로젝트용 데이터베이스를 생성한 후, 터미널에서 아래 명령어를 순서대로 실행합니다.
+
 # 1. 스키마 생성 및 인덱스 설정
+```bash
 mysql -u root -p project_db < db/schema.sql
 
 # 2. 기초 CSV 데이터(거주인구, 카페정보) 및 매핑 테이블 적재
