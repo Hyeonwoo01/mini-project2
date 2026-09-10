@@ -29,8 +29,12 @@ def run_pipeline():
     print("데이터 수집 완료. DB 적재 시작")
     
     conn = pymysql.connect(
-        host=os.getenv('DB_HOST'), user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'), database=os.getenv('DB_NAME'), charset='utf8mb4'
+        host=os.getenv('DB_HOST'), 
+        port=int(os.getenv('DB_PORT')),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD'), 
+        database=os.getenv('DB_NAME'), 
+        charset='utf8mb4'
     )
     cursor = conn.cursor()
     cursor.execute("TRUNCATE TABLE raw_seoul_living_pop")
