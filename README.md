@@ -56,29 +56,40 @@ SEOUL_API_KEY=본인API키
   URL: https://www.data.go.kr/data/15097972/fileData.do
   기준 시점: 20260630
 
-## Step 2. 데이터 파이프라인 가동 (수집 ➔ 적재 ➔ 마트 구축)
+### Step 2. MariaDB 스키마(테이블) 생성
+> Python으로 데이터를 적재하기 전, 데이터베이스에 빈 테이블과 인덱스를 먼저 세팅해야 합니다. 터미널에 아래 명령어를 입력하세요.
+```bash
+mysql -u root -p project_db < db/schema.sql
+```
+
+## Step 3. 데이터 파이프라인 가동 (수집 ➔ 적재 ➔ 마트 구축)
 파이썬 모듈 경로 인식 오류를 방지하기 위해 반드시 -m 옵션을 사용하여 순서대로 실행합니다.
 ### 1. 서울시 생활인구 API 데이터 24시간 수집
 ```bash
 python -m collector.seoul_pop
 ```
 
-### 2. 행정동 맵핑 테이블 DB 적재
+### 2. 기초 CSV 데이터 DB 적재
+```bash
+python -m collector.load_csv_to_db
+```
+
+### 3. 행정동 맵핑 테이블 DB 적재
 ```bash
 python -m collector.load_mapping
 ```
 
-### 3. 원본 데이터(JSON, CSV) DB에 밀어 넣기
+### 4. 원본 데이터(JSON, CSV) DB에 밀어 넣기
 ```bash
 python -m collector.load_to_db
 ```
 
-### 4. 데이터 마트 조립 및 블루오션 KPI 집계
+### 5. 데이터 마트 조립 및 블루오션 KPI 집계
 ```bash
 python -m collector.build_mart
 ```
 
-## Step 3. 대시보드 실행
+## Step 4. 대시보드 실행
 모든 데이터 준비가 완료되면 프레젠테이션 계층인 대시보드를 구동합니다.
 ```bash
 streamlit run app/main.py
