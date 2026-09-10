@@ -46,12 +46,12 @@ DB_NAME=project_db
 
 MariaDB에 접속하여 프로젝트용 데이터베이스를 생성한 후, 터미널에서 아래 명령어를 순서대로 실행합니다.
 
-# 1. 스키마 생성 및 인덱스 설정
+### 1. 스키마 생성 및 인덱스 설정
 ```bash
 mysql -u root -p project_db < db/schema.sql
 ```
 
-# 2. 기초 CSV 데이터(거주인구, 카페정보) 및 매핑 테이블 적재
+### 2. 기초 CSV 데이터(거주인구, 카페정보) 및 매핑 테이블 적재
 ```bash
 python miniproject2/collector/load_csv_to_db.py
 python miniproject2/collector/load_mapping.py
