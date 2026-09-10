@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     for hour in range(24):
         target_time = str(hour).zfill(2)
-        file_path = f"miniproject2/data/raw/living_pop_20260715_{target_time}.json"
+        file_path = f"data/raw/living_pop_20260715_{target_time}.json"
         
         if os.path.exists(file_path):
             load_json_to_db(file_path)
