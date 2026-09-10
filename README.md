@@ -49,19 +49,28 @@ MariaDB에 접속하여 프로젝트용 데이터베이스를 생성한 후, 터
 # 1. 스키마 생성 및 인덱스 설정
 ```bash
 mysql -u root -p project_db < db/schema.sql
+```
 
 # 2. 기초 CSV 데이터(거주인구, 카페정보) 및 매핑 테이블 적재
+```bash
 python miniproject2/collector/load_csv_to_db.py
 python miniproject2/collector/load_mapping.py
+```
 
-Step 2. API 데이터 수집 (Collector 계층)
+## Step 2. API 데이터 수집 (Collector 계층)
 서울시 OpenAPI를 호출하여 24시간 생활인구 데이터를 DB 원본(Raw) 테이블에 적재합니다.
+```bash
 python -m collector
+```
 
 ## Step 3. 데이터 마트(Mart) 집계
 무거운 연산을 대시보드에서 제외하기 위해, DB 단에서 KPI를 사전 연산하여 마트 테이블을 생성합니다.
+```bash
 mysql -u root -p project_db < db/build_mart.sql
+```
 
 ## Step 4. 대시보드 실행
 모든 데이터 준비가 완료되면 대시보드를 구동합니다
+```bash
 streamlit run app/main.py
+```
