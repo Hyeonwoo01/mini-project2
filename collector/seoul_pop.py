@@ -7,7 +7,7 @@ from collector.client import make_session, fetch_api
 load_dotenv()
 SEOUL_API_KEY = os.getenv("SEOUL_API_KEY")
 
-log_dir = "miniproject2/data/logs"
+log_dir = "data/logs"
 os.makedirs(log_dir, exist_ok=True)
 
 logging.basicConfig(
@@ -41,7 +41,7 @@ def collect_living_pop(target_date, target_time):
             print(msg_count)
             logging.info(msg_count)
             
-            save_dir = "../data/raw"
+            save_dir = "data/raw"
             os.makedirs(save_dir, exist_ok=True)
             
             file_name = f"{save_dir}/living_pop_{target_date}_{target_time}.json"

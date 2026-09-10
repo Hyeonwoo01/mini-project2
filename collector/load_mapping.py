@@ -26,7 +26,7 @@ def build_region_mapping():
         );
     """)
 
-    df_pop = pd.read_csv("miniproject2/data/raw/resident_pop.csv", encoding="utf-8")
+    df_pop = pd.read_csv("data/raw/resident_pop.csv", encoding="utf-8")
     
     df_pop['region_code'] = df_pop['행정기관코드'].astype(str).str.replace('.0', '', regex=False).str[:8]
     

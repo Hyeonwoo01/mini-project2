@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-log_dir = "miniproject2/data/logs"
+log_dir = "data/logs"
 os.makedirs(log_dir, exist_ok=True)
 
 logging.basicConfig(

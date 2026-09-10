@@ -8,7 +8,7 @@ import pymysql
 
 load_dotenv()
 
-log_dir = "miniproject2/data/logs"
+log_dir = "data/logs"
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(
     filename=f"{log_dir}/pipeline.log",
@@ -40,7 +40,7 @@ def run_pipeline():
     # 데이터 적재
     for hour in range(24):
         target_time = str(hour).zfill(2)
-        file_path = f"miniproject2/data/raw/living_pop_{target_date}_{target_time}.json"
+        file_path = f"data/raw/living_pop_{target_date}_{target_time}.json"
         
         if os.path.exists(file_path):
             load_json_to_db(file_path)

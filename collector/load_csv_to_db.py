@@ -16,7 +16,7 @@ def load_csv_data():
     cursor = conn.cursor()
 
     print("1. 거주인구 데이터 적재")
-    df_pop = pd.read_csv("miniproject2/data/raw/resident_pop.csv", encoding="utf-8")
+    df_pop = pd.read_csv("data/raw/resident_pop.csv", encoding="utf-8")
     
     target_cols = [f"{i}세남자" for i in range(20, 40)] + [f"{i}세여자" for i in range(20, 40)]
     
@@ -34,7 +34,7 @@ def load_csv_data():
     print(f" -> 거주인구 {len(pop_data)}건 적재")
 
     print("2. 카페 상가 데이터 적재")
-    df_cafe = pd.read_csv("miniproject2/data/raw/cafe_data.csv", encoding="utf-8", low_memory=False)
+    df_cafe = pd.read_csv("data/raw/cafe_data.csv", encoding="utf-8", low_memory=False)
     
     df_cafe = df_cafe[df_cafe['상권업종소분류명'].str.contains('카페|커피|빵/도넛', na=False, regex=True)]
     
