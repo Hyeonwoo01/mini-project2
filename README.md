@@ -39,9 +39,10 @@ DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=본인비밀번호
 DB_NAME=project_db
+
 ```
 
-## Step 1. DB 스키마 생성 및 기초 데이터 적재
+## Step 1. 기초 CSV 데이터 준비
 **기초 CSV 데이터 다운로드**
 > 미니프로젝트1에서 했던 데이터 파일을 그대로 가져와 사용하였습니다.
 > 원본 CSV 데이터는 `.gitignore`로 제외되었습니다.
@@ -55,32 +56,30 @@ DB_NAME=project_db
   URL: https://www.data.go.kr/data/15097972/fileData.do
   기준 시점: 20260630
 
-MariaDB에 접속하여 프로젝트용 데이터베이스를 생성한 후, 터미널에서 아래 명령어를 순서대로 실행합니다.
-# 1. 스키마 생성 및 인덱스 설정
-```env
-mysql -u root -p project_db < db/schema.sql
-```
-
-# 2. 기초 CSV 데이터(거주인구, 카페정보) 및 매핑 테이블 적재
+## Step 2. 데이터 파이프라인 가동 (수집 ➔ 적재 ➔ 마트 구축)
+파이썬 모듈 경로 인식 오류를 방지하기 위해 반드시 -m 옵션을 사용하여 순서대로 실행합니다.
+### 1. 서울시 생활인구 API 데이터 24시간 수집
 ```bash
-python miniproject2/collector/load_csv_to_db.py
-python miniproject2/collector/load_mapping.py
+python -m collector.seoul_pop
 ```
 
-## Step 2. API 데이터 수집 (Collector 계층)
-서울시 OpenAPI를 호출하여 24시간 생활인구 데이터를 DB 원본(Raw) 테이블에 적재합니다.
+### 2. 행정동 맵핑 테이블 DB 적재
 ```bash
-python -m collector
+python -m collector.load_mapping
 ```
 
-## Step 3. 데이터 마트(Mart) 집계
-무거운 연산을 대시보드에서 제외하기 위해, DB 단에서 KPI를 사전 연산하여 마트 테이블을 생성합니다.
+### 3. 원본 데이터(JSON, CSV) DB에 밀어 넣기
 ```bash
-mysql -u root -p project_db < db/build_mart.sql
+python -m collector.load_to_db
 ```
 
-## Step 4. 대시보드 실행
-모든 데이터 준비가 완료되면 대시보드를 구동합니다
+### 4. 데이터 마트 조립 및 블루오션 KPI 집계
+```bash
+python -m collector.build_mart
+```
+
+## Step 3. 대시보드 실행
+모든 데이터 준비가 완료되면 프레젠테이션 계층인 대시보드를 구동합니다.
 ```bash
 streamlit run app/main.py
 ```
